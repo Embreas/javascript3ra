@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    
+}
+
+/* nav */
+body{
+
+}
+body .tale-header{
+
+}
+body .tale-header .tale-navbar{
+
+}
+body .tale-header .tale-navbar .tale-nav-div{
+
+}
+body .tale-header .tale-navbar .tale-nav-div a{
+
+}
+body .tale-header .tale-navbar .tale-nav-div a img{
+    width: 200px;
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-mainlogo-button{
+
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-nav-right{
+    
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-nav-right .tale-order-unorder{
+    
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-nav-right .tale-order-unorder .tale-order-list{
+    
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-nav-right .tale-order-unorder .tale-order-list .tale-order-list-unorder{
+    
+}
+body .tale-header .tale-navbar .tale-nav-div .tale-nav-right .tale-order-unorder .tale-order-list .tale-order-list-unor{
+    
+}
+.tale-cartbutton img{
+    width: 30%;
+}
+.tale-main-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.tale-main-form{
+    width: 20%;
+    align-items: center;
+}
