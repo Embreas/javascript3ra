@@ -1,161 +1,149 @@
-let productosEnCarrito = [];
-
-if (localStorage.getItem("carrito")) {
-  productosEnCarrito = JSON.parse(localStorage.getItem("carrito"));
+let itemsincart = [];
+if (localStorage.getItem("cart")) {
+    itemsincart = JSON.parse(localStorage.getItem("cart"));
 } else {
-  localStorage.setItem("carrito", JSON.stringify(productosEnCarrito));
+    localStorage.setItem("cart", JSON.stringify(itemsincart));
 }
 
-function buscarInfo(buscado, array) {
-  let busqueda = array.filter(
-    (item) =>
-      item.type.toLowerCase().includes(buscado.toLowerCase()) ||
-      item.itemname.toLowerCase().includes(buscado.toLowerCase())
-  );
-
-  if (busqueda.length == 0) {
-    coincidencia.innerHTML = "";
-    let nuevoDiv = document.createElement("div");
-    nuevoDiv.innerHTML = `<p> No hay coincidencias</p>`;
-    coincidencia.appendChild(nuevoDiv);
-    mostrarCatalogo(array);
-  } else {
-    coincidencia.innerHTML = "";
-    mostrarCatalogo(busqueda);
-  }
+function findinfo(searched, array) {
+    let find = array.filter((item) =>
+        item.type.toLowerCase().includes(searched.toLowerCase()) ||
+        item.itemname.toLowerCase().includes(searched.toLowerCase())
+    );
+    if (find.length == 0) {
+        match.innerHTML = "";
+        let newdivcreated = document.createElement("div");
+        newdivcreated.innerHTML = `<p>There's nothing to show </p>`;
+        match.appendChild(newdivcreated);
+        showcatalog(array);
+        } else {
+        match.innerHTML = "";
+        showcatalog(find);
+    }
 }
 
-function ordenarMayorMenor(array) {
-  let mayorMenor = [].concat(array);
-  mayorMenor.sort((a, b) => b.price - a.price);
-  mostrarCatalogo(mayorMenor);
+function hitolow(array) {
+    let higher2lower = [].concat(array);
+    higher2lower.sort((a, b) => b.price - a.price);
+    showcatalog(higher2lower);
 }
 
-function ordenarMenorMayor(array) {
-  let menorMayor = [].concat(array);
-  menorMayor.sort((a, b) => a.price - b.price);
-  mostrarCatalogo(menorMayor);
+function lowtohi(array) {
+    let lower2higher = [].concat(array);
+    lower2higher.sort((a, b) => a.price - b.price);
+    showcatalog(lower2higher);
 }
 
-function ordenarAlfabeticamente(array) {
-  let alfabeticamente = [].concat(array);
-  alfabeticamente.sort((a, b) => {
+function alphaorder(array) {
+    let alphabeth = [].concat(array);
+    alphabeth.sort((a, b) => {
     return 0;
-  });
-  mostrarCatalogo(alfabeticamente);
+    });
+    showcatalog(alphabeth);
 }
 
-let divProductos = document.getElementById("productos");
-let btnGuardarLibro = document.getElementById("guardarLibroBtn");
-let buscador = document.getElementById("buscador");
-let btnVerCatalogo = document.getElementById("verCatalogo");
-let btnOcultarCatalogo = document.getElementById("ocultarCatalogo");
-let modalBody = document.getElementById("modal-body");
-let botonCarrito = document.getElementById("botonCarrito");
-let coincidencia = document.getElementById("coincidencia");
-let selectOrden = document.getElementById("selectOrden");
+let divitems = document.getElementById("items");
+let saveitembtn = document.getElementById("btnsaveitem");
+let finder = document.getElementById("finder");
+let modalbody = document.getElementById("modal-body");
+let cartbtn = document.getElementById("cartbtn");
+let match = document.getElementById("match");
+let orderselection = document.getElementById("orderselection");
 
-function mostrarCatalogo(array) {
-  divProductos.innerHTML = "";
-
-  for (const item of array) {
-    let nuevoLibro = document.createElement("div");
-    nuevoLibro.classList.add("col-12", "col-md-6", "col-lg-4", "my-4");
-    nuevoLibro.innerHTML = `<div id="${item.id}" class="card" style="width: 18rem;">
-        <img class="card-img-top img-fluid" style="height: 200px;"src="img/${item.image}" alt="${item.itemname} de ${item.type}">
+function showcatalog(array) {
+    divitems.innerHTML = "";
+    for (const item of array) {
+    let newitem2add = document.createElement("div");
+    newitem2add.classList.add("col-12", "col-md-6", "col-lg-4", "my-4");
+    newitem2add.innerHTML = 
+        `<div id="${item.id}" class="card" style="width: 19rem;">
+        <img class="card-img-top img-fluid" style="height: 250px;"src="img/${item.image}" alt="${item.itemname} de ${item.type}">
         <div class="card-body">
             <h4 class="card-title">${item.itemname}</h4>
             <p>Type: ${item.type}</p>
             <p class="">Price: ${item.price}</p>
-        <button id="agregarBtn${item.id}" class="btn btn-outline-success">Agregar al carrito</button>
+            <button id="addbtn${item.id}" class="btn btn-outline-success">add to cart</button>
         </div>
-</div>`;
-    divProductos.appendChild(nuevoLibro);
-    let btnAgregar = document.getElementById(`agregarBtn${item.id}`);
+        </div>`;
+    divitems.appendChild(newitem2add);
+    let addbtnvar = document.getElementById(`addbtn${item.id}`);
+    addbtnvar.addEventListener("click", () => {
+        add2cart(item);
+        });
+    }
+}
 
-    btnAgregar.addEventListener("click", () => {
-      agregarAlCarrito(item);
+function add2cart(item) {
+    itemsincart.push(item);
+    localStorage.setItem("cart", JSON.stringify(itemsincart));
+}
+
+function loaditemsincart(array) {
+    modalbody.innerHTML = "";
+    array.forEach((cartitem) => {
+        modalbody.innerHTML += 
+        `<div class="card border-primary mb-3" id ="cartitem${cartitem.id}" style="max-width: 480px;">
+        <img class="card-img-top" height="320px" src="img/${cartitem.image}" alt="${cartitem.itemname}">
+            <div class="card-body">
+                <h5 class="card-title">${cartitem.itemname}</h5>
+                <p class="card-text">$${cartitem.price}</p> 
+                <button class= "btn btn-danger" id="removebtn${cartitem.id}"><i class="fas fa-trash-alt"></i></button>
+            </div>    
+        </div>
+        `;
     });
-  }
-}
-
-function agregarAlCarrito(item) {
-  productosEnCarrito.push(item);
-  localStorage.setItem("carrito", JSON.stringify(productosEnCarrito));
-}
-
-function cargarProductosCarrito(array) {
-  modalBody.innerHTML = "";
-
-  array.forEach((productoCarrito) => {
-    modalBody.innerHTML += `<div class="card border-primary mb-3" id ="productoCarrito${productoCarrito.id}" style="max-width: 540px;">
-      <img class="card-img-top" height="300px" src="img/${productoCarrito.image}" alt="${productoCarrito.itemname}">
-      <div class="card-body">
-              <h4 class="card-title">${productoCarrito.itemname}</h4>
-          
-              <p class="card-text">$${productoCarrito.price}</p> 
-              <button class= "btn btn-danger" id="botonEliminar${productoCarrito.id}"><i class="fas fa-trash-alt"></i></button>
-      </div>    
-  </div>
-`;
-  });
-
-  array.forEach((productoCarrito, indice) => {
-    document
-      .getElementById(`botonEliminar${productoCarrito.id}`)
-      .addEventListener("click", () => {
+    array.forEach((cartitem, index) => {
+        document
+        .getElementById(`removebtn${cartitem.id}`)
+        .addEventListener("click", () => {
         let cardProducto = document.getElementById(
-          `productoCarrito${productoCarrito.id}`
+            `cartitem${cartitem.id}`
         );
         cardProducto.remove();
-        productosEnCarrito.splice(indice, 1);
-        localStorage.setItem("carrito", JSON.stringify(productosEnCarrito));
-      });
-  });
+        itemsincart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(itemsincart));
+        });
+    });
 }
 
-function cargarLibro(array) {
-  let inputType = document.getElementById("inputType");
-  let inputName = document.getElementById("inputName");
-  let inputPrice = document.getElementById("inputPrice");
-
-  let itemCreado = new Item(
+function loaditem(array) {
+    let inputType = document.getElementById("inputType");
+    let inputName = document.getElementById("inputName");
+    let inputPrice = document.getElementById("inputPrice");
+    let createditem = new Item(
     array.length + 1,
     inputType.value,
     inputName.value,
     parseInt(inputPrice.value),
     "latalelogo2.png"
-  );
-  array.push(itemCreado);
-  localStorage.setItem("itemshelf", JSON.stringify(array));
-  mostrarCatalogo(array);
-  inputType.value = "";
-  inputName.value = "";
-  inputPrice.value = "";
+    );
+    array.push(createditem);
+    localStorage.setItem("itemshelf", JSON.stringify(array));
+    showcatalog(array);
+    inputType.value = "";
+    inputName.value = "";
+    inputPrice.value = "";
 }
 
-btnGuardarLibro.addEventListener("click", () => {
-  cargarLibro(itemshelf);
+saveitembtn.addEventListener("click", () => {
+    loaditem(itemshelf);
+});
+finder.addEventListener("input", () => {
+    findinfo(finder.value, itemshelf);
+});
+cartbtn.addEventListener("click", () => {
+    loaditemsincart(itemsincart);
+});
+orderselection.addEventListener("change", () => {
+    if (orderselection.value == 1) {
+    hitolow(itemshelf);
+    } else if (orderselection.value == 2) {
+    lowtohi(itemshelf);
+    } else if (orderselection.value == 3) {
+    alphaorder(itemshelf);
+    } else {
+    showcatalog(itemshelf);
+    }
 });
 
-buscador.addEventListener("input", () => {
-  buscarInfo(buscador.value, itemshelf);
-});
-
-botonCarrito.addEventListener("click", () => {
-  cargarProductosCarrito(productosEnCarrito);
-});
-
-selectOrden.addEventListener("change", () => {
-  if (selectOrden.value == 1) {
-    ordenarMayorMenor(itemshelf);
-  } else if (selectOrden.value == 2) {
-    ordenarMenorMayor(itemshelf);
-  } else if (selectOrden.value == 3) {
-    ordenarAlfabeticamente(itemshelf);
-  } else {
-    mostrarCatalogo(itemshelf);
-  }
-});
-
-mostrarCatalogo(itemshelf);
+showcatalog(itemshelf);

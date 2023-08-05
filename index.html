@@ -28,14 +28,14 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <form class="d-flex">
-                        <input id="buscador" class="form-control me-2" placeholder="Find your item"
+                        <input id="finder" class="form-control me-2" placeholder="Find your item"
                             aria-label="Search">
                         <button id="btnBuscar" class="btn btn-outline-success">Buscar</button>
                     </form>
 
                 </ul>
                 <ul>
-                    <select id="selectOrden" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <select id="orderselection" class="form-select form-select-sm" aria-label=".form-select-sm example">
                         <option selected>Ordenar por:</option>
                         <option value="1">Mayor a menor</option>
                         <option value="2">Menor a mayor</option>
@@ -44,7 +44,7 @@
                 </ul>
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item ">
-                        <a id="botonCarrito" data-bs-toggle="modal" data-bs-target="#idModal"
+                        <a id="cartbtn" data-bs-toggle="modal" data-bs-target="#idModal"
                             class="btn btn-secondary"><i class="fas fa-shopping-cart fa-1x"></i></a>
                     </li>
                 </ul>
@@ -73,11 +73,11 @@
 
         </div>
     </form>
-    <button type="text" id="guardarLibroBtn" class="btn btn-success">Guardar Libro</button>
+    <button type="text" id="btnsaveitem" class="btn btn-success">Guardar Libro</button>
     <br><br>
     <div class="container">
-        <div id="coincidencia"></div>
-        <div id="productos" class="row">
+        <div id="match"></div>
+        <div id="items" class="row">
         </div>
     </div>
 
