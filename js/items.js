@@ -62,7 +62,7 @@ function showcatalog(array) {
             <h4 class="card-title">${item.itemname}</h4>
             <p>Type: ${item.type}</p>
             <p class="">Price: ${item.price}</p>
-            <button id="addbtn${item.id}" class="btn btn-outline-success">add to cart</button>
+            <button id="addbtn${item.id}" class="btn btn-outline-success add-item-button-container-btn">add to cart</button>
         </div>
         </div>`;
     divitems.appendChild(newitem2add);
@@ -87,7 +87,7 @@ function loaditemsincart(array) {
             <div class="card-body">
                 <h5 class="card-title">${cartitem.itemname}</h5>
                 <p class="card-text">$${cartitem.price}</p> 
-                <button class= "btn btn-danger" id="removebtn${cartitem.id}"><i class="fas fa-trash-alt"></i></button>
+                <button class= "btn btn-danger remove-item-button" id="removebtn${cartitem.id}"><img src="./img/trash-bin.png" alt=""></i></button>
             </div>    
         </div>
         `;
